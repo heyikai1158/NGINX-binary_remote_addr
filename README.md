@@ -26,3 +26,33 @@ listen端口即和7070端口所绑定
 例如原先访问localhost:7070/方法名
 
 现在访问localhost:90/方法名
+
+## 修改“因超限制访问”而指向的503页面(其他错误页面修改方式可照搬)
+server {
+        listen  90;
+        error_page 503 /503.html;
+        location = /503.html {
+                root /root/test3g/test3g;
+        }
+        location / {
+                return 503;
+        }
+}
+
+#### 实例如下
+
+#处理单个指定错误
+
+error_page 403 http://www.baidu.com;
+
+#处理一系列指定错误
+
+error_page 400 502 503 504 http://example.com/notfound.html;
+
+按照上述配置后，如果发生404错误，就会跳转到百度首页。
+
+#更改响应状态码
+
+error_page 404 =200 /error.html;
+
+再次访问，发生404错误，但是响应码为200，成功隐藏了实际响应码。
