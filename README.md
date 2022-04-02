@@ -2,7 +2,9 @@
 使用NGINX进行接口限流
 
 ## 配置nginx.conf
+
 #### 定义了一个 mylimit 缓冲区（容器），请求频率为每秒 1 个请求（nr/s）
+
 limit_req_zone $binary_remote_addr zone=mylimit:10m rate=1r/s;
 server {
     listen  90;
@@ -16,7 +18,11 @@ server {
 }
 
 上述的7070端口即需要监听的端口地址,该端口号需要在SPRING项目的application中定义
+
 listen端口即和7070端口所绑定
+
 在启动项目后不再直接访问spring中定义的7070端口，改向访问新定义的90端口
+
 例如原先访问localhost:7070/方法名
+
 现在访问localhost:90/方法名
